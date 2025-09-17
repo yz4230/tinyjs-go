@@ -47,13 +47,9 @@ func (l *Lexer) Lex(lval *yySymType) int {
 	if unicode.IsDigit(l.ch) {
 		var sb strings.Builder
 		sb.WriteRune(l.ch)
-		for {
-			if unicode.IsDigit(l.peek()) {
-				l.next()
-				sb.WriteRune(l.ch)
-			} else {
-				break
-			}
+		for unicode.IsDigit(l.peek()) {
+			l.next()
+			sb.WriteRune(l.ch)
 		}
 		lval.literal = sb.String()
 		lval.val = lo.Must(strconv.Atoi(lval.literal))
@@ -62,13 +58,9 @@ func (l *Lexer) Lex(lval *yySymType) int {
 	if unicode.IsLetter(l.ch) {
 		var sb strings.Builder
 		sb.WriteRune(l.ch)
-		for {
-			if unicode.IsLetter(l.peek()) {
-				l.next()
-				sb.WriteRune(l.ch)
-			} else {
-				break
-			}
+		for unicode.IsLetter(l.peek()) {
+			l.next()
+			sb.WriteRune(l.ch)
 		}
 		lval.literal = sb.String()
 		lval.val = lval.literal
