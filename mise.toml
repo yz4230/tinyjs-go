@@ -1,0 +1,8 @@
+[tools]
+go = "latest"
+"go:github.com/air-verse/air" = "latest"
+"go:golang.org/x/tools/cmd/goyacc" = "latest"
+
+[tasks]
+generate = "go generate ./..."
+test = "go test -v ./..."
