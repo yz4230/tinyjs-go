@@ -1,5 +1,9 @@
 package subjs
 
+type Ident string
+type StringValue string
+type NumberValue int
+
 type AddExpr struct {
 	Left, Right any
 }
@@ -20,12 +24,12 @@ func (e *AddExpr) Eval() any {
 }
 
 type CallExpr struct {
-	Name string
+	Name Ident
 	Args []any
 }
 
 type MethodCallExpr struct {
-	Receiver []string
-	Method   string
+	Receiver []any
+	Method   Ident
 	Args     []any
 }

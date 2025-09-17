@@ -25,6 +25,7 @@ func NewLexer(input []byte) *Lexer {
 func (l *Lexer) Lex(lval *yySymType) int {
 	l.skipWhitespace()
 	l.next()
+
 	if l.ch == '+' || l.ch == '(' || l.ch == ')' || l.ch == '.' || l.ch == ',' {
 		return int(l.ch)
 	}
@@ -105,7 +106,10 @@ func (l *Lexer) peek() rune {
 }
 
 func (l *Lexer) skipWhitespace() {
-	for unicode.IsSpace(l.ch) {
+	if unicode.IsSpace(l.ch) {
+		l.next()
+	}
+	for unicode.IsSpace(l.peek()) {
 		l.next()
 	}
 }
