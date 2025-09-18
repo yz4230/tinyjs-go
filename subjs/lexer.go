@@ -5,21 +5,20 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
-	"unicode/utf8"
 
 	"github.com/samber/lo"
 )
 
 type Lexer struct {
-	input  []byte
+	input  []rune
 	offset int
 	ch     rune
 	Result any
 	Err    error
 }
 
-func NewLexer(input []byte) *Lexer {
-	return &Lexer{input: input, offset: 0}
+func NewLexer(input []rune) *Lexer {
+	return &Lexer{input: input, offset: 0, ch: input[0]}
 }
 
 func (l *Lexer) Lex(lval *yySymType) int {
@@ -75,32 +74,18 @@ func (l *Lexer) next() {
 		l.ch = 0
 		return
 	}
-	ch := l.input[l.offset]
-	if ch < utf8.RuneSelf {
-		l.offset++
-		l.ch = rune(ch)
-		return
-	}
-	r, size := utf8.DecodeRune(l.input[l.offset:])
-	l.offset += size
-	l.ch = r
+	l.ch = l.input[l.offset]
+	l.offset++
 }
 
 func (l *Lexer) peek() rune {
 	if l.offset >= len(l.input) {
 		return 0
 	}
-	ch := l.input[l.offset]
-	if ch < utf8.RuneSelf {
-		return rune(ch)
-	}
-	return lo.Must(utf8.DecodeRune(l.input[l.offset:]))
+	return l.input[l.offset]
 }
 
 func (l *Lexer) skipWhitespace() {
-	if unicode.IsSpace(l.ch) {
-		l.next()
-	}
 	for unicode.IsSpace(l.peek()) {
 		l.next()
 	}

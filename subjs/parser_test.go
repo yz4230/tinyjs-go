@@ -23,7 +23,7 @@ func TestParse_Factor(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			lexer := NewLexer([]byte(tt.input))
+			lexer := NewLexer([]rune(tt.input))
 			parser := NewParser()
 			parser.Parse(lexer)
 
@@ -70,7 +70,7 @@ func TestParse_Expr(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			lexer := NewLexer([]byte(tt.input))
+			lexer := NewLexer([]rune(tt.input))
 			parser := NewParser()
 			parser.Parse(lexer)
 
@@ -106,7 +106,7 @@ func TestParse_Call(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			lexer := NewLexer([]byte(tt.input))
+			lexer := NewLexer([]rune(tt.input))
 			parser := NewParser()
 			parser.Parse(lexer)
 
@@ -132,7 +132,7 @@ func TestParse_Idents(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			lexer := NewLexer([]byte(tt.input))
+			lexer := NewLexer([]rune(tt.input))
 			parser := NewParser()
 			parser.Parse(lexer)
 
@@ -191,7 +191,7 @@ func TestParse_MethodCall(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			lexer := NewLexer([]byte(tt.input))
+			lexer := NewLexer([]rune(tt.input))
 			parser := NewParser()
 			parser.Parse(lexer)
 
@@ -228,7 +228,7 @@ func TestParse_Complex(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			lexer := NewLexer([]byte(tt.input))
+			lexer := NewLexer([]rune(tt.input))
 			parser := NewParser()
 			parser.Parse(lexer)
 
@@ -253,7 +253,7 @@ func TestEval_Spaces(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			lexer := NewLexer([]byte(tt.input))
+			lexer := NewLexer([]rune(tt.input))
 			parser := NewParser()
 			parser.Parse(lexer)
 
